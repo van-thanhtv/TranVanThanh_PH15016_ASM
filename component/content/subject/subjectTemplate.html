@@ -1,0 +1,63 @@
+<div class="row">
+  <div
+    class="col-lg-6 col-12 mb-lg-4 mb-3"
+    ng-repeat="subject in $ctrl.subjects | filter : $ctrl.key.subjectName | orderBy: 'Name' | limitTo : $ctrl.pageSize : $ctrl.index"
+  >
+    <div class="card">
+      <div class="card-body d-flex justify-content-center">
+        <a
+          ng-href="{{
+            !$ctrl.hasTested(subject.Id)
+              ? '#!start/' + subject.Id
+              : '#!/end/' + subject.Id
+          }}"
+          ><img ng-src="img/subjects/{{ subject.Logo }}" alt=""
+        /></a>
+      </div>
+      <div class="card-footer text-center">
+        <a
+          ng-href="{{
+            !$ctrl.hasTested(subject.Id)
+              ? '#!start/' + subject.Id
+              : '#!/end/' + subject.Id
+          }}"
+          class="text-dark"
+          style="text-decoration: none; font-size: 1.2em"
+          >{{ subject.Id }} - {{ subject.Name }}
+          <span ng-show="$ctrl.hasTested(subject.Id)" class="badge badge-info"
+            >Đã thi</span
+          ></a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pagination -->
+<nav
+  aria-label="Page navigation example"
+  class="mt-4 d-flex justify-content-center"
+>
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="" ng-click="$ctrl.first()">
+        <i class="fas fa-step-backward"></i>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="" ng-click="$ctrl.prev()">
+        <i class="fas fa-backward"></i>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="" ng-click="$ctrl.next()">
+        <i class="fas fa-forward"></i>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="" ng-click="$ctrl.last()">
+        <i class="fas fa-step-forward"></i>
+      </a>
+    </li>
+  </ul>
+</nav>

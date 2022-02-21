@@ -1,0 +1,45 @@
+<p class="my-3 text-center h2 text-primary text-uppercase mb-5">Cập nhật thông tin</p>
+
+<div class="container col-10 col-lg-6">
+    <div class="alert alert-success text-center col-12" ng-if="$ctrl.success">Cập nhật thành công !</div>
+    <form class="mt-2" ng-submit="$ctrl.save()">
+        <div class="form-group">
+            <label>Họ và tên : </label>
+            <input type="text" ng-model="$ctrl.account.fullname" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label> Giới tính : </label>
+            <div class="form-group">
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" ng-model="$ctrl.account.gender" type="radio" name="gender"
+                            ng-value="true" ng-checked='$ctrl.account.gender == "true"' />
+                        Nam
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" ng-model="$ctrl.account.gender" type="radio" name="gender"
+                            ng-value="false" ng-checked='$ctrl.account.gender == "false"' />
+                        Nữ
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="birthday">Ngày sinh : </label>
+            <input type="text" ng-model="$ctrl.account.birthday" id="birthday" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="password">Mật khẩu : </label>
+            <input type="password" ng-model="$ctrl.account.password" id="password" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="email">Email : </label>
+            <input type="email" ng-model="$ctrl.account.email" name="" id="email" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-danger btn-lg my-4 col-12">
+            Cập nhật
+        </button>
+    </form>
+</div>

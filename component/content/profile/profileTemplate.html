@@ -1,0 +1,54 @@
+<p class="h2 text-center text-primary text-uppercase m-3">Thông tin sinh viên</p>
+
+<div class="container col-12 mt-5">
+    <table style="font-size: 1.25rem;" class="table-spacing">
+        <tr>
+            <td>Họ tên đầy đủ </td>
+            <td>:</td>
+            <td class="font-weight-bold">{{$ctrl.student.fullname}}</td>
+        </tr>
+        <tr>
+            <td>Điểm </td>
+            <td>:</td>
+            <td class="font-weight-bold">{{$ctrl.student.marks | number : 1}} đ</td>
+        </tr>
+    </table>
+    <hr class="mt-5 mb-4">
+    <div class="card">
+        <div class="card-header text-uppercase font-weight-bold">
+            Danh sách môn đã thi
+        </div>
+        <div class="card-body p-0">
+            <table class="table m-0 table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th>No.1</th>
+                        <th>Mã môn học</th>
+                        <th>Tên môn học</th>
+                        <th>Số câu đúng</th>
+                        <th>Số câu sai</th>
+                        <th>Tổng điểm</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="subject in $ctrl.student.subjects">
+                        <td scope="row">{{$index + 1}}</td>
+                        <td>{{subject.Id}}</td>
+                        <td>{{subject.Name}}</td>
+                        <td>{{subject.testInfo.correctAnswer}}</td>
+                        <td>{{subject.testInfo.incorrectAnswer}}</td>
+                        <td>{{subject.testInfo.totalScores}}</td>
+                        <td>
+                            <a ng-href="#!end/{{subject.Id}}" class="text-dark">Xem chi tiết</a>
+                        </td>
+                    </tr>
+                    <tr ng-show="$ctrl.student.subjects.length == 0">
+                        <td colspan="7" class="text-center">Bạn chưa thi môn nào</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+<!-- Test -->
+<p class="h1 text-center mb-5" ng-if="ctrl.timer.minutes && ctrl.timer.seconds && ctrl.timer.value >= 0">
+    Thời gian còn lại : <span ng-bind='ctrl.timer.minutes'></span> Phút <span ng-bind="ctrl.timer.seconds"></span> giây</p>
+<!-- Button trigger modal -->
+<a  class="btn btn-danger btn-lg m-3"  ng-href="#!/end/{{ctrl.subject.Id}}">
+Kết thúc kiểm tra
+</a>
+
+<div class="card" ng-repeat='qs in ctrl.questions | limitTo : ctrl.step : ctrl.index'>
+    <div class="card-header text-uppercase font-weight-bold">
+        <i class="fas fa-th-list"></i> {{ctrl.subject.Name}}
+    </div>
+    <div class="card-body test-question-body">
+        <h6 class="card-title border-bottom">
+            <b>{{ctrl.index + 1}}. </b> {{qs.Text}}
+        </h6>
+        <p class="card-text">
+            <form>
+                <div class="custom-control custom-radio mb-2" ng-repeat="as in qs.Answers">
+                    <input ng-model="ctrl.myAnswers[ctrl.index]" type="radio" class="custom-control-input" id="answer{{as.Id}}" ng-value="{{as.Id}}" name="answer">
+                    <label class="custom-control-label" for="answer{{as.Id}}">{{as.Text}}</label>
+                </div>
+            </form>
+
+        </p>
+    </div>
+    <div class="card-footer text-muted text-uppercase">
+        {{ctrl.index + 1}}/{{ctrl.questions.length}}
+    </div>
+</div>
+
+<!-- Pagination -->
+<nav class="mt-4 d-flex justify-content-between">
+    <button class="btn btn-primary col-2" ng-click="ctrl.prev()" ng-disabled="!ctrl.hasPrev()">
+        Back
+    </button>
+    <button class="btn btn-primary col-2"  ng-click="ctrl.next()" ng-disabled="!ctrl.hasNext()">
+        Next
+    </button>
+</nav>

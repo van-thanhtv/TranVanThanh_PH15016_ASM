@@ -1,0 +1,45 @@
+<div class="col-12">
+  <p
+    class="alert alert-{{
+      $ctrl.subject.testInfo.totalScores >= 5 ? 'success' : 'danger'
+    }} text-center h1 text-uppercase"
+  >
+    {{ $ctrl.subject.testInfo.totalScores >= 5 ? "passed" : "failed" }} !
+  </p>
+  <div class="w-100 text-right px-3">
+    <b>Kết thúc : </b>
+    <span class="text-muted">{{
+      $ctrl.subject.testInfo.endTime
+        | date: "HH:mm,  'ngày' dd 'tháng' MM 'năm' yyyy"
+    }}</span>
+  </div>
+
+  <div class="card mt-3 ">
+    <div class="card-header text-uppercase text-info font-weight-bold h5">
+      {{ $ctrl.subject.Name }}
+    </div>
+    <table class="table border-primary m-0 table-sm">
+      <thead>
+        <tr>
+          <th>Câu hỏi</th>
+          <th>Trả lời</th>
+          <th>Điểm</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="detail in $ctrl.subject.testInfo.detail">
+          <td scope="row">
+            <b ng-bind="($index + 1) + '.'"></b>
+            <span ng-bind="detail.questionText"></span>
+          </td>
+          <td ng-bind="detail.correct ? 'Đúng' : 'Sai'"></td>
+          <td ng-bind="detail.scores"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="card-footer text-right">
+      <span class="font-weight-bold">Tổng điểm : </span>
+      <span>{{ $ctrl.subject.testInfo.totalScores }}</span>
+    </div>
+  </div>
+</div>

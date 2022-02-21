@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mApp" ng-controller="mainCtrl">
+
+<head>
+  <title>{{ title }}</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--===============================================================================================-->
+  <link rel="icon" type="image/png" href="/logofpt.ico" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/templates/source/vendor/bootstrap/css/bootstrap.min.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/templates/source/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/templates/source/fonts/Linearicons-Free-v1.0.0/icon-font.min.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/templates/source/vendor/animate/animate.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/templates/source/vendor/css-hamburgers/hamburgers.min.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/templates/source/vendor/animsition/css/animsition.min.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/templates/source/vendor/select2/select2.min.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/templates/source/vendor/daterangepicker/daterangepicker.css" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" type="text/css" href="/templates/source/css/util.css" />
+  <link rel="stylesheet" type="text/css" href="/templates/source/css/main.css" />
+  <!--===============================================================================================-->
+</head>
+
+<body style="background-color: #666666;" ng-controller="loginCtrl">
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100">
+        <form class="login100-form validate-form" ng-submit="processLogin()">
+          <span class="login100-form-title p-b-43" style="font-family: Arial, Helvetica, sans-serif">
+            Đăng nhập
+          </span>
+
+          <div class="wrap-input100">
+            <input class="input100" type="text" name="username" ng-model="loginInfo.username" />
+            <span class="focus-input100"></span>
+            <span class="label-input100">Tên Đăng Nhập</span>
+          </div>
+
+          <div class="wrap-input100 ">
+            <input class="input100" type="password" name="pass" ng-model="loginInfo.password" />
+            <span class="focus-input100"></span>
+            <span class="label-input100">Mật khẩu</span>
+          </div>
+
+          <div class="flex-sb-m w-full p-t-3 p-b-32">
+            <div class="contact100-form-checkbox">
+              <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" />
+              <label class="label-checkbox100" for="ckb1">
+                Remember me
+              </label>
+            </div>
+
+            <div>
+              <a class="txt1">
+                Tạo tài khoản
+              </a>
+            </div>
+          </div>
+
+          <div ng-if="errorMessage" class="col-12 text-center mb-3 mt-2">
+            <span class="text-danger font-italic">{{ errorMessage }}</span>
+          </div>
+
+          <div class="container-login100-form-btn">
+            <button type="submit" class="login100-form-btn">
+              Đăng nhập
+            </button>
+          </div>
+        </form>
+        <div class="login100-more" style="background-image: url('/templates/source/images/bg-01.jpg');"></div>
+      </div>
+    </div>
+  </div>
+
+  <!--===============================================================================================-->
+  <script src="/templates/source/vendor/jquery/jquery-3.2.1.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="/templates/source/vendor/animsition/js/animsition.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="/templates/source/vendor/select2/select2.min.js"></script>
+  <!--===============================================================================================-->
+  <script src="/templates/source/vendor/daterangepicker/moment.min.js"></script>
+  <script src="/templates/source/vendor/daterangepicker/daterangepicker.js"></script>
+  <!--===============================================================================================-->
+  <script src="/templates/source/vendor/countdowntime/countdowntime.js"></script>
+  <!--===============================================================================================-->
+  <script src="/templates/source/js/main.js"></script>
+
+  <!-- Angular JS -->
+  <script src="/js/angularjs.min.js"></script>
+  <script src="/js/angular-route.min.js"></script>
+  <script src="/js/localStorage.js"></script>
+  
+  <!-- App AngularJS -->
+  <script src="/js/app.js"></script>
+
+  <script src="/js/mainCtrl.js"></script>
+
+  <!-- Ctrl -->
+  <script>
+    app.controller(
+      "loginCtrl",
+      ($rootScope, $scope, StudentService, $window, SessionService) => {
+        $rootScope.setTitle("Đăng nhập");
+
+        $scope.loginInfo = {};
+
+        $scope.processLogin = () => {
+
+          let user = StudentService.findStudentsById(
+            $scope.loginInfo.username
+          );
+
+          if (user == null) {
+            $scope.errorMessage = "Không tìm thấy tên đăng nhập";
+            return;
+          }
+
+          if (user.password != $scope.loginInfo.password) {//Kiểm tra mật khẩu có đúng ko
+            $scope.errorMessage = "Mật khẩu không chính xác !";
+            return;
+          }
+
+          $scope.errorMessage = null;
+          SessionService.create("user").save(user);//Lưu tài khoản vào SessionService
+          $window.location.href = "/index.html";
+        };
+      }
+    );
+  </script>
+</body>
+
+</html>
